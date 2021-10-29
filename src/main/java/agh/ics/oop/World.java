@@ -1,0 +1,24 @@
+package agh.ics.oop;
+
+public class World
+{
+    public static void main(String[] args) {
+        System.out.println("start");
+
+        run(Direction.convert(args));
+
+        System.out.println("stop");
+    }
+
+    public static void run(Direction[] array){
+            for (Direction s : array)
+            {
+                switch (s) {
+                    case FORWARD -> System.out.println("zwierz idzie do przodu");
+                    case BACKWARD -> System.out.println("zwierz idzie do tylu");
+                    case RIGHT -> System.out.println("zwierz idzie w prawo");
+                    case LEFT -> System.out.println("zwierz idzie w lewo");
+                }
+            }
+    }
+}
