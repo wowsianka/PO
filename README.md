@@ -1,1 +1,1 @@
-oolab
+# Programowanie obiektowe
