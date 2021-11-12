@@ -68,4 +68,6 @@ public class Vector2d {
         return new Vector2d((-1)*this.x, (-1)*this.y);
     }
 
+
+
 }
