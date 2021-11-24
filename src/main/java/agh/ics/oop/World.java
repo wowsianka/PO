@@ -12,6 +12,7 @@ public class World
         System.out.println(position2);
         System.out.println(position1.add(position2));
         System.out.println( MapDirection.NORTH.toUnitVector());
+
         Animal zwierz1 = new Animal();
 //        zwierz1.move(MoveDirection.RIGHT);
 //        zwierz1.move(MoveDirection.FORWARD);

@@ -16,7 +16,7 @@ public class OptionsParser {
                 case "b", "backward" -> {
                     strlist.add(MoveDirection.BACKWARD);
                 }
-                case "fl", "left" -> {
+                case "l", "left" -> {
                     strlist.add(MoveDirection.LEFT);
                 }
                 case "r", "right" -> {
