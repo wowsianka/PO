@@ -68,6 +68,10 @@ public class Vector2d {
         return new Vector2d((-1)*this.x, (-1)*this.y);
     }
 
+    public static Vector2d getRandomPosition(int min, int max){
+        return new Vector2d((int) ((Math.random() * (max - min)) + min), (int) ((Math.random() * (max - min)) + min));
+    }
+
 
 
 }

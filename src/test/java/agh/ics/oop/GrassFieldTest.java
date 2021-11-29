@@ -1,24 +1,16 @@
 package agh.ics.oop;
-import org.junit.jupiter.api.Test;
+
 import org.junit.jupiter.api.Assertions;
-import java.util.LinkedList;
+import org.junit.jupiter.api.Test;
+
 import java.util.List;
 
-import agh.ics.oop.SimulationEngine;
-import agh.ics.oop.MoveDirection;
-import agh.ics.oop.Vector2d;
-import agh.ics.oop.Animal;
-import agh.ics.oop.OptionsParser;
-import agh.ics.oop.RectangularMap;
-
-
-
-public class RectangularMapTest {
+public class GrassFieldTest {
     @Test
     public void animalMovementTest(){
         String[] args={"f", "b" , "r", "l"};
         MoveDirection[] directions = new OptionsParser().parse(args);
-        RectangularMap map = new RectangularMap(10, 5);
+        GrassField map = new GrassField(10);
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
         SimulationEngine engine = new SimulationEngine(directions, map, positions);
         engine.run();
@@ -35,7 +27,7 @@ public class RectangularMapTest {
     public void shouldnNotPlaceAnimalsOnSamePosition(){
         String[] args={"f", "f" , "r", "l"};
         MoveDirection[] directions = new OptionsParser().parse(args);
-        RectangularMap map = new RectangularMap(10, 5);
+        GrassField map = new GrassField(10);
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(2,2) };
         SimulationEngine engine = new SimulationEngine(directions, map, positions);
         engine.run();
@@ -50,29 +42,28 @@ public class RectangularMapTest {
 
     @Test
     public void checkIfAnimalWasAddedToAnimalsList(){
-        RectangularMap map = new RectangularMap(10, 5);
+        GrassField map = new GrassField(10);
         Animal a = new Animal(map, new Vector2d(2,3));
         map.place(a);
 
         Assertions.assertTrue(map.getAnimals().contains(a));
     }
+
     @Test
-    public void shouldNotBeAbleToMoveOutsideMap(){
-        RectangularMap map = new RectangularMap(2, 2);
+    public void shouldBeAbleToMoveOutsideMap(){
+        GrassField map = new GrassField(10);
         Animal a = new Animal(map, new Vector2d(1,1));
         map.place(a);
         a.move(MoveDirection.FORWARD);
         a.move(MoveDirection.FORWARD);
         a.move(MoveDirection.FORWARD);
 
-        Assertions.assertEquals(a.getPosition(), new Vector2d(1,2));
+        Assertions.assertEquals(a.getPosition(), new Vector2d(1,4));
     }
 
     @Test
     public void shouldNotMoveIfBlockedByOtherAnimal(){
-        String[] args={"r ", "f" , "l"};
-        MoveDirection[] directions = new OptionsParser().parse(args);
-        RectangularMap map = new RectangularMap(10, 5);
+        GrassField map = new GrassField(10);
         Animal a = new Animal(map, new Vector2d(2,3));
         Animal b = new Animal(map, new Vector2d(2,4));
         map.place(a);
@@ -86,9 +77,7 @@ public class RectangularMapTest {
 
     @Test
     public void placeAnimal(){
-        String[] args={"r", "f" , "l"};
-        MoveDirection[] directions = new OptionsParser().parse(args);
-        RectangularMap map = new RectangularMap(10, 5);
+        GrassField map = new GrassField(10);
         Animal a = new Animal(map, new Vector2d(2,3));
         map.place(a);
 
@@ -96,7 +85,7 @@ public class RectangularMapTest {
     }
     @Test
     public void isOccupiedShouldReturnTrue(){
-        RectangularMap map = new RectangularMap(10, 5);
+        GrassField map = new GrassField(10);
         Animal a = new Animal(map, new Vector2d(2,3));
         map.place(a);
 
@@ -105,7 +94,7 @@ public class RectangularMapTest {
 
     @Test
     public void isObjectAnAnimal(){
-        RectangularMap map = new RectangularMap(10, 5);
+        GrassField map = new GrassField(10);
         Animal a = new Animal(map, new Vector2d(2,3));
         map.place(a);
 
