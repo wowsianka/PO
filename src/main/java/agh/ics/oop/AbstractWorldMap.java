@@ -1,37 +1,36 @@
 package agh.ics.oop;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
-abstract class AbstractWorldMap  implements IWorldMap{
-    private List<Animal> animals = new LinkedList<>();
+abstract class AbstractWorldMap  implements IWorldMap, IPositionChangeObserver {
+//    private List<Animal> animals = new LinkedList<>();
     private MapVisualizer mapVisual = new MapVisualizer(this);
+    private Map<Vector2d, Animal> animals = new HashMap<>();
+//    private Set<Vector2d> keys = this.animals.keySet();
 
 
     public boolean place(Animal animal) {
         if(this.canMoveTo(animal.getPosition())){
-            this.animals.add(animal);
+            this.animals.put(animal.getPosition(), animal);
+            animal.addObserver(this);
             return true;
         }
         return false;
     }
 
     public boolean isOccupied(Vector2d position) {
-        for (Animal animal : this.animals){
-            if(animal.getPosition().equals(position))
-                return true;
-        }
+        if(this.animals.containsKey(position))
+            return true;
         return false;
     }
 
     public Object objectAt(Vector2d position) {
-        for (Animal animal : this.animals){
-            if(animal.getPosition().equals(position))
-                return animal;
-        }
+        if(this.animals.containsKey(position))
+            return this.animals.get(position);
+
         return null;
     }
-    public List<Animal>  getAnimals(){
+    public  Map<Vector2d, Animal>  getAnimals(){
         return this.animals;
     }
 
@@ -40,6 +39,14 @@ abstract class AbstractWorldMap  implements IWorldMap{
     public String toString(){
 
         return mapVisual.draw(getLowerLeftCorner(), getUpperRightCorner());
+    }
+
+
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
+        Animal animal = this.animals.get(oldPosition);
+        this.animals.remove(oldPosition);
+        this.animals.put(newPosition, animal);
     }
 
 }

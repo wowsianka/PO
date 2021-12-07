@@ -1,4 +1,5 @@
 package agh.ics.oop;
+import java.util.Objects;
 import java.util.Vector;
 
 import static java.lang.StrictMath.max;
@@ -72,6 +73,8 @@ public class Vector2d {
         return new Vector2d((int) ((Math.random() * (max - min)) + min), (int) ((Math.random() * (max - min)) + min));
     }
 
-
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
 }

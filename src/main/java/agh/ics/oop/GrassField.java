@@ -2,6 +2,7 @@ package agh.ics.oop;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class GrassField extends AbstractWorldMap{
 
@@ -10,6 +11,8 @@ public class GrassField extends AbstractWorldMap{
 
     private Vector2d lowerLeftCorner;
     private Vector2d upperRightCorner;
+    private Set<Vector2d> keys = this.getAnimals().keySet();
+
 
     public GrassField(int numberOfGrass){
         this.numberOfGrass  = numberOfGrass;
@@ -65,8 +68,8 @@ public class GrassField extends AbstractWorldMap{
             this.lowerLeftCorner = grass.getPosition().lowerLeft(this.lowerLeftCorner);
         }
 
-        for (Animal animal : this.getAnimals()){
-            this.lowerLeftCorner = animal.getPosition().lowerLeft(this.lowerLeftCorner);
+        for (Vector2d key : keys){
+            this.lowerLeftCorner = key.lowerLeft(this.lowerLeftCorner);
         }
         return this.lowerLeftCorner;
     }
@@ -77,8 +80,8 @@ public class GrassField extends AbstractWorldMap{
             this.upperRightCorner = grass.getPosition().upperRight(this.upperRightCorner);
         }
 
-        for (Animal animal : this.getAnimals()){
-            this.upperRightCorner = animal.getPosition().upperRight(this.upperRightCorner);
+        for (Vector2d key : keys){
+            this.upperRightCorner = key.upperRight(this.upperRightCorner);
         }
         return this.upperRightCorner;
     }

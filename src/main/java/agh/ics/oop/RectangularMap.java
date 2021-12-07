@@ -6,7 +6,7 @@ public class RectangularMap  extends AbstractWorldMap{
     private Vector2d upperRightCorner;
     private Vector2d lowerLeftCorner;
 
-//    private Map<Vector2d, Animal> positionToAnimal = new HashMap<>();
+// private Map<Vector2d, Animal> positionToAnimal = new HashMap<>();
 
     public RectangularMap(int width, int height){
         this.upperRightCorner = new Vector2d(width, height);

@@ -54,7 +54,7 @@ public class RectangularMapTest {
         Animal a = new Animal(map, new Vector2d(2,3));
         map.place(a);
 
-        Assertions.assertTrue(map.getAnimals().contains(a));
+        Assertions.assertTrue(map.getAnimals().containsValue(a));
     }
     @Test
     public void shouldNotBeAbleToMoveOutsideMap(){
@@ -92,7 +92,7 @@ public class RectangularMapTest {
         Animal a = new Animal(map, new Vector2d(2,3));
         map.place(a);
 
-        Assertions.assertTrue(map.getAnimals().contains(a));
+        Assertions.assertTrue(map.getAnimals().containsValue(a));
     }
     @Test
     public void isOccupiedShouldReturnTrue(){
