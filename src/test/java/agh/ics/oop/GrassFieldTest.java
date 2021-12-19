@@ -25,17 +25,18 @@ public class GrassFieldTest {
 
     @Test
     public void shouldnNotPlaceAnimalsOnSamePosition(){
-        String[] args={"f", "f" , "r", "l"};
-        MoveDirection[] directions = new OptionsParser().parse(args);
-        GrassField map = new GrassField(10);
-        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(2,2) };
-        SimulationEngine engine = new SimulationEngine(directions, map, positions);
-        engine.run();
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+                    String[] args = {"f", "f", "r", "l"};
+                    MoveDirection[] directions = new OptionsParser().parse(args);
+                    GrassField map = new GrassField(10);
+                    Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(2, 2)};
+                    SimulationEngine engine = new SimulationEngine(directions, map, positions);
+                    engine.run();
+        });
+        String expectedMessage = "(2,2) is occupied";
+        String actualMessage = exception.getMessage();
 
-        List<Animal> animals = engine.getAnimals();
-        Assertions.assertEquals(animals.size(), 1);
-//        Assertions.assertEquals(animals.get(0).getPosition(), new Vector2d(2,4));
-//        Assertions.assertEquals(animals.get(0).getOrientation(), MapDirection.NORTH);
+        Assertions.assertTrue(actualMessage.contains(expectedMessage));
 
     }
 

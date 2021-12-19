@@ -7,6 +7,7 @@ public class SimulationEngine implements  IEngine{
     private MoveDirection[] directions;
     private  IWorldMap map;
     private List<Animal> animals = new LinkedList<>();
+    private Integer lastStep = 0;
 
     public SimulationEngine(MoveDirection[] directions, IWorldMap map, Vector2d[] initialPositions){
         this.directions = directions;
@@ -21,6 +22,16 @@ public class SimulationEngine implements  IEngine{
     }
     public List<Animal>  getAnimals(){
         return this.animals;
+    }
+
+    public Boolean step() {
+        if(this.lastStep >= 0 && this.lastStep < directions.length){
+            animals.get(this.lastStep % animals.size()).move(directions[this.lastStep]);
+            this.lastStep++;
+            System.out.println(map);
+            return true;
+        }
+        return false;
     }
 
     @Override

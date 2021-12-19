@@ -5,7 +5,7 @@ import java.util.*;
 abstract class AbstractWorldMap  implements IWorldMap, IPositionChangeObserver {
 //    private List<Animal> animals = new LinkedList<>();
     private MapVisualizer mapVisual = new MapVisualizer(this);
-    private Map<Vector2d, Animal> animals = new HashMap<>();
+    private LinkedHashMap<Vector2d, Animal> animals = new LinkedHashMap<>();
 //    private Set<Vector2d> keys = this.animals.keySet();
 
 
@@ -15,7 +15,8 @@ abstract class AbstractWorldMap  implements IWorldMap, IPositionChangeObserver {
             animal.addObserver(this);
             return true;
         }
-        return false;
+//        return false;
+        throw new IllegalArgumentException(animal.getPosition() + " is occupied");
     }
 
     public boolean isOccupied(Vector2d position) {

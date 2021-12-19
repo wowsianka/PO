@@ -8,6 +8,7 @@ public class GrassField extends AbstractWorldMap{
 
     private final Integer numberOfGrass;
     private List<Grass> grassField = new LinkedList<>();
+    private MapBoundary boundary = new MapBoundary();
 
     private Vector2d lowerLeftCorner;
     private Vector2d upperRightCorner;
@@ -24,9 +25,20 @@ public class GrassField extends AbstractWorldMap{
 
             Grass grass = new Grass(grassPosition);
             grassField.add(grass);
+            this.boundary.add(grass);
         }
         this.lowerLeftCorner = grassField.get(0).getPosition();
         this.upperRightCorner = grassField.get(0).getPosition();
+    }
+
+    @Override
+    public boolean place(Animal animal) {
+        if(super.place(animal)){
+            this.boundary.add(animal);
+            animal.addObserver(boundary);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -62,36 +74,22 @@ public class GrassField extends AbstractWorldMap{
         return null;
     }
 
-    @Override
-    Vector2d getLowerLeftCorner() {
-        for (Grass grass : this.grassField){
-            this.lowerLeftCorner = grass.getPosition().lowerLeft(this.lowerLeftCorner);
-        }
-
-        for (Vector2d key : keys){
-            this.lowerLeftCorner = key.lowerLeft(this.lowerLeftCorner);
-        }
-        return this.lowerLeftCorner;
-    }
-
-    @Override
-    Vector2d getUpperRightCorner() {
-        for (Grass grass : this.grassField){
-            this.upperRightCorner = grass.getPosition().upperRight(this.upperRightCorner);
-        }
-
-        for (Vector2d key : keys){
-            this.upperRightCorner = key.upperRight(this.upperRightCorner);
-        }
-        return this.upperRightCorner;
-    }
-
     public boolean isGrassAt(Vector2d grassPosition){
         for (Grass grass : this.grassField){
             if(grass.getPosition().equals(grassPosition))
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public Vector2d getLowerLeftCorner(){
+        return this.boundary.getLowerLeft();
+    }
+
+    @Override
+    public Vector2d getUpperRightCorner(){
+        return this.boundary.getUpperRight();
     }
 
 

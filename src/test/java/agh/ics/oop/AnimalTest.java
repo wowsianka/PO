@@ -1,9 +1,9 @@
-//package agh.ics.oop;
-//
-//import org.junit.jupiter.api.Assertions;
-//import org.junit.jupiter.api.Test;
-//
-//public class AnimalTest {
+package agh.ics.oop;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+public class AnimalTest {
 //
 //    @Test
 //    public void testAnimal(){
@@ -81,16 +81,35 @@
 //        Assertions.assertEquals(testAnimal.toString(), "(2,0):Północ");
 //
 //    }
-//    @Test
-//    public void parse(){
-//        Animal testAnimal = new Animal();
-//        String[] testDirection = {"f","b","forward","xx","backward","f", "sss","l", "r", "r","forward"};
-//        OptionsParser parser = new OptionsParser();
-//        for (MoveDirection par : parser.parse(testDirection)){
-//            testAnimal.move(par);
-//        }
-//        Assertions.assertEquals(testAnimal.toString(), "(3,3):Wschód");
-//    }
-//
-//
-//}
+    @Test
+    public void parse(){
+
+        IWorldMap map = new GrassField(10);
+        Animal testAnimal = new Animal(map);
+        String[] testDirection = {"f","b","forward","backward","f", "l", "r", "r","forward"};
+        OptionsParser parser = new OptionsParser();
+        for (MoveDirection par : parser.parse(testDirection)){
+            testAnimal.move(par);
+        }
+        Assertions.assertEquals(testAnimal.toString(), "E");
+    }
+
+
+    @Test
+    public void parse_whenExceptionThrown_thenAssertionSucceeds() {
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            IWorldMap map = new GrassField(10);
+            Animal testAnimal = new Animal(map);
+            String[] testDirection = {"f","b","dd"};
+            OptionsParser parser = new OptionsParser();
+            for (MoveDirection par : parser.parse(testDirection)){
+                testAnimal.move(par);
+            }
+        });
+
+        String expectedMessage = "dd is not legal move specification";
+        String actualMessage = exception.getMessage();
+
+        Assertions.assertTrue(actualMessage.contains(expectedMessage));
+    }
+}
