@@ -28,7 +28,17 @@ public class Animal implements IMapElement {
     }
 
     public String toString(){
-        return this.orientation.toString();
+        return "A:"+ this.position.toString() ;
+    }
+
+    @Override
+    public String getImage() {
+        return switch (this.orientation) {
+            case NORTH -> "src/main/resources/up.png";
+            case EAST -> "src/main/resources/right.png";
+            case SOUTH -> "src/main/resources/down.png";
+            case WEST -> "src/main/resources/left.png";
+        };
     }
 
     public boolean isAt(Vector2d position){
